@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:include filename="inertial_macros.xacro"/>
+    <material name="white">
+        <color rgba="1 1 1 1" />
+    </material>
+
+    <material name="green">
+        <color rgba="1 0.3 0.1 1" />
+    </material>
+
+    <material name="blue">
+        <color rgba="0.2 0.2 1 1" />
+    </material>
+
+    <material name="black">
+        <color rgba="0 0 0 1" />
+    </material>
+        
+	<!-- BASE LINK -->
+    
+    <link name="base_link">
+
+    </link>
+    
+	<!-- CLASSIS LINK -->
+	
+    <joint name="chassis_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="chassis"/>
+        <origin xyz="-0.1 0 0"/>
+    </joint>
+    
+    <link name="chassis">
+            <visual>
+                <origin xyz="0.15 0  0.055"/>
+                <geometry>
+                    <box size="0.30 0.16 0.11 "/>
+                </geometry>
+                <material name="white"/>
+            </visual>
+            <conllision>
+                <origin xyz="0.15 0  0.055"/>
+                <geometry>
+                    <box size="0.30 0.16 0.11 "/>
+                </geometry>
+            </conllision>
+            <xacro:inertial_box mass="0.5" x="0.30" y="0.16" z="0.11">
+            	<origin xyz="0.15 0 0.055" rpy="0 0 0"/>
+            </xacro:inertial_box>
+        </link>
+        
+        <!-- LEFT WHEEL LINK -->
+        
+        <joint name="left_wheel_joint" type="continuous">
+        	<parent link="base_link"/>
+        	<child link="left_wheel"/>
+        	<origin xyz="0 0.10 0" rpy="-${pi/2} 0 0"/>
+        	<axis xyz="0 0 1"/>
+        </joint>
+        
+        <link name="left_wheel">
+        	<visual>
+        		<geometry>
+        			<cylinder radius="0.03" length="0.02"/>
+        		</geometry>
+        		<material name="blue"/>
+        	</visual>
+        	<conllision>
+        		<geometry>
+        			<cylinder radius="0.03" length="0.02"/>
+        		</geometry>
+        	</conllision>    
+        	<xacro:inertial_cylinder mass="0.1" length="0.02" radius="0.03">
+        		<origin xyz="0 0 0" rpy="0 0 0"/>
+        	</xacro:inertial_cylinder>    	
+        </link>
+
+       <!-- RIGHT WHEEL LINK -->
+        
+        <joint name="right_wheel_joint" type="continuous">
+        	<parent link="base_link"/>
+        	<child link="right_wheel"/>
+        	<origin xyz="0 -0.10 0" rpy="-${pi/2} 0 0"/>
+        	<axis xyz="0 0 -1"/>
+        </joint>
+        
+        <link name="right_wheel">
+        	<visual>
+        		<geometry>
+        			<cylinder radius="0.03" length="0.02"/>
+        		</geometry>
+        		<material name="blue"/>
+        	</visual>
+        	<conllision>
+        		<geometry>
+        			<cylinder radius="0.03" length="0.02"/>
+        		</geometry>
+
+        	</conllision>
+        	<xacro:inertial_cylinder mass="0.1" length="0.02" radius="0.03">
+        		<origin xyz="0 0 0" rpy="0 0 0"/>
+        	</xacro:inertial_cylinder>            	
+        </link>
+        
+        <!-- CASTER LEFT WHEEL LINK -->
+        
+        <joint name="Lcaster_wheel_joint" type="fixed">
+        	<parent link="chassis"/>
+        	<child link="Lcaster_wheel"/>
+        	<origin xyz="0.27 0.05 0 "/>
+        </joint>
+        
+        
+        <link name="Lcaster_wheel">
+        	<visual>
+        		<geometry>
+        			<sphere radius="0.03"/>
+        		</geometry>
+        		<material name="black"/>
+        	</visual>
+        	<conllision>
+        		<geometry>
+        			<sphere radius="0.03"/>
+        		</geometry>
+
+        	</conllision>     
+        	<xacro:inertial_sphere mass="0.1" radius="0.03">
+        		<origin xyz="0 0 0" rpy="0 0 0"/>
+        	</xacro:inertial_sphere>  	
+        </link>
+        
+        <!-- CASTER RIGHT WHEEL LINK -->
+        
+        <joint name="Rcaster_wheel_joint" type="fixed">
+        	<parent link="chassis"/>
+        	<child link="Rcaster_wheel"/>
+        	<origin xyz="0.27 -0.05 0 "/>
+        </joint>
+        
+        
+        <link name="Rcaster_wheel">
+        	<visual>
+        		<geometry>
+        			<sphere radius="0.03"/>
+        		</geometry>
+        		<material name="black"/>
+        	</visual>
+        	<conllision>>
+        		<geometry>
+        			<sphere radius="0.03"/>
+        		</geometry>
+
+        	</conllision>> 
+        	<xacro:inertial_sphere mass="0.1" radius="0.03">
+        		<origin xyz="0 0 0" rpy="0 0 0"/>
+        	</xacro:inertial_sphere>         	
+        </link>
+
+</robot>
