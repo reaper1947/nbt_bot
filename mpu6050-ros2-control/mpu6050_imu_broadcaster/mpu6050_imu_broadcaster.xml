@@ -1,9 +1,0 @@
-<library path="mpu6050_imu_broadcaster">
-	<class name="mpu6050_imu_broadcaster/MPU6050Hardware"
-		   type="mpu6050_imu_broadcaster::MPU6050Hardware"
-		   base_class_type="hardware_interface::SensorInterface">
-		<description>
-			The MPU6050 inertial measurement unit (IMU) broadcaster uses the ros2_control sensor hardware interface (or component).
-		</description>
-	</class>
-</library>

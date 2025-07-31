@@ -11,29 +11,29 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
-    channel_type =  LaunchConfiguration('channel_type', default='serial')
-    serial_port = LaunchConfiguration('serial_port', default='/dev/rplidar_c1')
-    serial_baudrate = LaunchConfiguration('serial_baudrate', default='460800')
+    channel_type = LaunchConfiguration('channel_type', default='tcp')
+    tcp_ip = LaunchConfiguration('tcp_ip', default='192.168.0.7')
+    tcp_port = LaunchConfiguration('tcp_port', default='20108') 
     frame_id = LaunchConfiguration('frame_id', default='laser')
     inverted = LaunchConfiguration('inverted', default='false')
     angle_compensate = LaunchConfiguration('angle_compensate', default='true')
-    scan_mode = LaunchConfiguration('scan_mode', default='Standard')
 
     return LaunchDescription([
+
         DeclareLaunchArgument(
             'channel_type',
             default_value=channel_type,
             description='Specifying channel type of lidar'),
 
         DeclareLaunchArgument(
-            'serial_port',
-            default_value=serial_port,
-            description='Specifying usb port to connected lidar'),
+            'tcp_ip',
+            default_value=tcp_ip,
+            description='Specifying tcp ip to connected lidar'),
 
         DeclareLaunchArgument(
-            'serial_baudrate',
-            default_value=serial_baudrate,
-            description='Specifying usb port baudrate to connected lidar'),
+            'tcp_port',
+            default_value=tcp_port,
+            description='Specifying tcp port to connected lidar'),
         
         DeclareLaunchArgument(
             'frame_id',
@@ -50,22 +50,17 @@ def generate_launch_description():
             default_value=angle_compensate,
             description='Specifying whether or not to enable angle_compensate of scan data'),
 
-        DeclareLaunchArgument(
-            'scan_mode',
-            default_value=scan_mode,
-            description='Specifying scan mode of lidar'),
-
         Node(
             package='sllidar_ros2',
             executable='sllidar_node',
             name='sllidar_node',
-            parameters=[{'channel_type':channel_type,
-                         'serial_port': serial_port, 
-                         'serial_baudrate': serial_baudrate, 
+            parameters=[{'channel_type': channel_type, 
+                         'tcp_ip': tcp_ip,
+                         'tcp_port': tcp_port, 
                          'frame_id': frame_id,
                          'inverted': inverted, 
-                         'angle_compensate': angle_compensate, 
-                         'scan_mode': scan_mode}],
+                         'angle_compensate': angle_compensate}],
             output='screen'),
     ])
 
+        

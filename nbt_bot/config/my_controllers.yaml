@@ -1,6 +1,6 @@
 controller_manager:
   ros__parameters:
-    update_rate: 30
+    update_rate: 50
     # use_sim_time: true
 
     diff_cont:
@@ -9,31 +9,33 @@ controller_manager:
     joint_broad:
       type: joint_state_broadcaster/JointStateBroadcaster
 
-    imu_broadcaster:
-      type: imu_sensor_broadcaster/IMUSensorBroadcaster 
+#     imu_broadcaster:
+#       type: imu_sensor_broadcaster/IMUSensorBroadcaster 
 
-imu_broadcaster:
-  ros__parameters:
+# imu_broadcaster:
+#   ros__parameters:
 
-    sensor_name: mpu6050
-    frame_id: imu_link
+#     sensor_name: mpu6050
+#     frame_id: imu_link
 
-   # Covariance from 500 data points
-    static_covariance_orientation: [2.63882e-06, 0.0, 0.0, 0.0, 7.50018e-06, 0.0, 0.0, 0.0, 2.89257e-09]
-    static_covariance_angular_velocity: [2.71413e-07, 0.0, 0.0, 0.0, 6.79488e-07, 0.0, 0.0, 0.0, 4.37879e-07]
-    static_covariance_linear_acceleration: [0.00133755, 0.0, 0.0, 0.0, 0.000209753, 0.0, 0.0, 0.0, 0.00143276]
+#    # Covariance from 500 data points
+#     static_covariance_orientation: [2.63882e-06, 0.0, 0.0, 0.0, 7.50018e-06, 0.0, 0.0, 0.0, 2.89257e-09]
+#     static_covariance_angular_velocity: [2.71413e-07, 0.0, 0.0, 0.0, 6.79488e-07, 0.0, 0.0, 0.0, 4.37879e-07]
+#     static_covariance_linear_acceleration: [0.00133755, 0.0, 0.0, 0.0, 0.000209753, 0.0, 0.0, 0.0, 0.00143276]
     
 diff_cont:
   ros__parameters:
 
     publish_rate: 50.0
 
+    publish_tf: false
+
     base_frame_id: base_link
 
     left_wheel_names: ['left_wheel_joint']
     right_wheel_names: ['right_wheel_joint']
-    wheel_separation: 0.20
-    wheel_radius: 0.033
+    wheel_separation: 0.205
+    wheel_radius: 0.0325
 
     use_stamped_vel: false
 

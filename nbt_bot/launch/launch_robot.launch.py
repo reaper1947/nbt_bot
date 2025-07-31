@@ -78,12 +78,12 @@ def generate_launch_description():
         arguments=["joint_broad"],
     )
 
-    # Spawn imu_sensor_broadcaser
-    imu_broadcaster_spawner = Node(
-        package='controller_manager',
-        executable='spawner',
-        arguments=['imu_broadcaster']
-    )
+    #Spawn imu_sensor_broadcaser
+    # imu_broadcaster_spawner = Node(
+    #     package='controller_manager',
+    #     executable='spawner',
+    #     arguments=['imu_broadcaster']
+    # )
 
     delayed_joint_broad_spawner = RegisterEventHandler(
         event_handler=OnProcessStart(
@@ -92,6 +92,60 @@ def generate_launch_description():
         )
     )
 
+    pub_joint_state = Node(
+        package='joint_state_publisher',
+        executable='joint_state_publisher',
+        name='joint_state_publisher',
+        parameters=[{'use_sim_time' : False}]
+    )
+
+    # imu_driver_node = Node(
+    #     package='icm20948_ros2',         
+    #     executable='imu_node',           
+    #     name='icm20948_driver',
+    #     output='screen'
+    # )
+
+    # imu_filter_node = Node(
+    #     package='imu_filter_madgwick',
+    #     executable='imu_filter_madgwick_node',
+    #     name='imu_filter',
+    #     parameters=[{
+    #         'use_mag': True,
+    #         'use_magnetic_field_msg': True,
+    #         'publish_tf': False,
+    #         'world_frame': 'enu',
+    #         'orientation_stddev': 0.05,
+    #         'gain': 0.01
+    #     }],
+    #     remappings=[
+    #         ('imu/data_raw', '/imu/data_raw'),
+    #         ('imu/data', '/imu/data')
+    #     ]
+    # )
+
+    # ekf_node = Node(
+    #     package='robot_localization',
+    #     executable='ekf_node',
+    #     name='ekf_filter_node',
+    #     output='screen',
+    #     parameters=[os.path.join(get_package_share_directory(package_name), 'config', 'ekf.yaml')],
+    #     # remappings=[
+    #     #     ('/odometry/filtered', '/odom')  # <--- remap ไปที่ /odom
+    #     # ]
+    # )
+
+    # node_laser_link = Node(
+    #     package='tf2_ros',
+    #     executable='static_transform_publisher',
+    #     name='base_to_laser',
+    #     arguments=[
+    #         '0.22', '0', '0.15',
+    #         '0', '3.14159', '3.14159',
+    #         'chassis', 'laser'
+    #     ],
+    #     output='screen'
+    # )
 
     # Code for delaying a node (I haven't tested how effective it is)
     # 
@@ -109,8 +163,6 @@ def generate_launch_description():
     #
     # Replace the diff_drive_spawner in the final return with delayed_diff_drive_spawner
 
-
-
     # Launch them all!
     return LaunchDescription([
         rsp,
@@ -119,5 +171,10 @@ def generate_launch_description():
         delayed_controller_manager,
         delayed_diff_drive_spawner,
         delayed_joint_broad_spawner,
-        imu_broadcaster_spawner
+        # imu_broadcaster_spawner,
+        pub_joint_state,
+        # imu_driver_node,
+        # imu_filter_node,
+        # ekf_node,
+        # node_laser_link,
     ])
